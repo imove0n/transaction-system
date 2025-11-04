@@ -4,7 +4,8 @@
       "Bash(dir:*)",
       "Bash(npm run dev:*)",
       "Bash(mkdir:*)",
-      "Bash(test -f:*)"
+      "Bash(test -f:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
