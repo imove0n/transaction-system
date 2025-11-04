@@ -74,9 +74,13 @@ function App() {
       // Refresh transactions
       fetchTransactions();
     } catch (error) {
-      setUploadResult(error.response?.data || { 
-        success: false, 
-        message: 'Error uploading file' 
+      const errorData = error.response?.data;
+      setUploadResult({
+        success: false,
+        message: errorData?.message || errorData?.error || 'Error uploading file. Please check the file format and try again.',
+        ...(errorData?.invalidRecords && { invalidRecords: errorData.invalidRecords, totalInvalid: errorData.totalInvalid }),
+        ...(errorData?.duplicates && { duplicates: errorData.duplicates }),
+        ...(errorData?.existing && { existing: errorData.existing })
       });
     }
 
