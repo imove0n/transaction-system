@@ -15,7 +15,10 @@ function App() {
     symbol: '',
     order_side: '',
     order_status: '',
-    name: ''
+    name: '',
+    quantity: '',
+    amount: '',
+    transaction_date: ''
   });
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
@@ -139,7 +142,10 @@ function App() {
       symbol: '',
       order_side: '',
       order_status: '',
-      name: ''
+      name: '',
+      quantity: '',
+      amount: '',
+      transaction_date: ''
     });
     setTimeout(fetchTransactions, 100);
   };
@@ -234,7 +240,24 @@ function App() {
               onChange={(e) => handleFilterChange('name', e.target.value)}
               className="input"
             />
-            
+
+            <input
+              type="number"
+              placeholder="Quantity"
+              value={filters.quantity}
+              onChange={(e) => handleFilterChange('quantity', e.target.value)}
+              className="input"
+            />
+
+            <input
+              type="number"
+              placeholder="Amount"
+              value={filters.amount}
+              onChange={(e) => handleFilterChange('amount', e.target.value)}
+              className="input"
+              step="0.01"
+            />
+
             <select
               value={filters.order_side}
               onChange={(e) => handleFilterChange('order_side', e.target.value)}
@@ -244,7 +267,7 @@ function App() {
               <option value="Buy">Buy</option>
               <option value="Sell">Sell</option>
             </select>
-            
+
             <select
               value={filters.order_status}
               onChange={(e) => handleFilterChange('order_status', e.target.value)}
@@ -255,6 +278,14 @@ function App() {
               <option value="Matched">Matched</option>
               <option value="Cancelled">Cancelled</option>
             </select>
+
+            <input
+              type="text"
+              placeholder="Transaction Date"
+              value={filters.transaction_date}
+              onChange={(e) => handleFilterChange('transaction_date', e.target.value)}
+              className="input"
+            />
           </div>
 
           <div className="filter-actions">

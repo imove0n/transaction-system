@@ -9,17 +9,18 @@ const pool = mysql.createPool({
   database: 'transaction_db',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
 });
 
-// Test connection
-pool.getConnection((err, connection) => {
+// Test connection using a simple query
+pool.query('SELECT 1', (err) => {
   if (err) {
     console.error('Error connecting to MySQL:', err);
     return;
   }
   console.log('✅ Connected to MySQL database');
-  connection.release();
 });
 
 // Create tables if they don't exist

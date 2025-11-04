@@ -194,12 +194,15 @@ router.post('/upload', handleUpload, (req, res) => {
 
 // Get all transactions (with optional filters)
 router.get('/', (req, res) => {
-  const { 
-    reference_number, 
-    symbol, 
-    order_side, 
+  const {
+    reference_number,
+    symbol,
+    order_side,
     order_status,
-    name 
+    name,
+    quantity,
+    amount,
+    transaction_date
   } = req.query;
 
   let query = 'SELECT * FROM transactions WHERE 1=1';
@@ -228,6 +231,21 @@ router.get('/', (req, res) => {
   if (name) {
     query += ' AND name LIKE ?';
     params.push(`%${name}%`);
+  }
+
+  if (quantity) {
+    query += ' AND quantity = ?';
+    params.push(parseInt(quantity));
+  }
+
+  if (amount) {
+    query += ' AND amount = ?';
+    params.push(parseFloat(amount));
+  }
+
+  if (transaction_date) {
+    query += ' AND transaction_date LIKE ?';
+    params.push(`%${transaction_date}%`);
   }
 
   query += ' ORDER BY created_at DESC';
