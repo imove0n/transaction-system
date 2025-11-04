@@ -12,10 +12,14 @@ const upload = multer({ dest: 'uploads/' });
 
 // Upload and process CSV
 router.post('/upload', upload.single('file'), (req, res) => {
+  console.log('📤 Upload request received');
+
   if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
+    console.log('❌ No file uploaded');
+    return res.status(400).json({ error: 'No file uploaded', message: 'Please select a CSV file to upload' });
   }
 
+  console.log('📁 File received:', req.file.originalname);
   const filePath = req.file.path;
   const fileName = req.file.originalname;
   const records = [];
@@ -42,11 +46,14 @@ router.post('/upload', upload.single('file'), (req, res) => {
       }
     })
     .on('end', () => {
+      console.log(`✅ CSV parsed: ${records.length} valid, ${invalidRecords.length} invalid`);
+
       // Delete uploaded file
       fs.unlinkSync(filePath);
 
       // If there are invalid records, reject entire file
       if (invalidRecords.length > 0) {
+        console.log('❌ File rejected due to invalid records');
         // Log invalid records to database
         const logQuery = `
           INSERT INTO invalid_records (file_name, row_number, error_message, record_data)

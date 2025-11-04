@@ -6,7 +6,8 @@
       "Bash(mkdir:*)",
       "Bash(test -f:*)",
       "Bash(cat:*)",
-      "Bash(mysql:*)"
+      "Bash(mysql:*)",
+      "Bash(node -e:*)"
     ],
     "deny": [],
     "ask": []
