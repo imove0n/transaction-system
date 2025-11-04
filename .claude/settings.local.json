@@ -5,7 +5,8 @@
       "Bash(npm run dev:*)",
       "Bash(mkdir:*)",
       "Bash(test -f:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(mysql:*)"
     ],
     "deny": [],
     "ask": []

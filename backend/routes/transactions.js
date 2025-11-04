@@ -94,7 +94,8 @@ router.post('/upload', upload.single('file'), (req, res) => {
         refNumbers,
         (err, existingRecords) => {
           if (err) {
-            return res.status(500).json({ error: 'Database error', details: err.message });
+            console.error('Database error checking duplicates:', err);
+            return res.status(500).json({ error: 'Database error', message: 'Error checking for duplicate records: ' + err.message });
           }
 
           if (existingRecords.length > 0) {
