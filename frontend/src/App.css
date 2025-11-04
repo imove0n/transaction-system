@@ -384,23 +384,31 @@ body {
   background: var(--bg-secondary);
 }
 
-/* ========== ALERTS ========== */
+/* ========== UNIQUE MODERN ALERTS ========== */
 .alert {
-  padding: 18px 24px;
+  padding: 0;
   border-radius: var(--radius-lg);
-  border-left: 4px solid;
   margin-top: 24px;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  background: white;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
 }
 
 .alert-success {
-  border-color: var(--color-success);
-  background: #f0fdf4;
+  border-top: 3px solid var(--color-success);
+}
+
+.alert-success strong {
+  color: var(--color-success);
 }
 
 .alert-error {
-  border-color: var(--color-danger);
-  background: #fef2f2;
+  border-top: 3px solid #ff6b6b;
+}
+
+.alert-error strong {
+  color: #1a1a1a;
 }
 
 .alert strong {
@@ -408,18 +416,20 @@ body {
   margin-bottom: 10px;
   font-size: 15px;
   font-weight: 700;
-  color: var(--text-primary);
+  padding: 20px 24px 0 24px;
 }
 
 .alert p {
   font-size: 14px;
   color: var(--text-secondary);
-  margin: 6px 0;
+  margin: 0;
+  padding: 0 24px 20px 24px;
   font-weight: 500;
 }
 
 .invalid-records {
-  margin-top: 16px;
+  margin-top: 0;
+  padding: 0 24px 20px 24px;
 }
 
 .error-list {
