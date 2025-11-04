@@ -1,0 +1,4 @@
+reference_number,quantity,amount,name,transaction_date,symbol,order_side,order_status
+REF001,100,1500.50,John Doe,01/01/2024 10:30:00,AAPL,Buy,Open
+REF002,200,2500.75,Jane Smith,02/01/2024 14:15:00,GOOGL,Sell,Matched
+REF003,150,1800.00,Bob Johnson,03/01/2024 09:45:00,MSFT,Buy,Cancelled
