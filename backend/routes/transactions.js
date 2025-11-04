@@ -8,10 +8,27 @@ const db = require('../database');
 const { validateRecord, checkDuplicates } = require('../validator');
 
 // Configure multer for file uploads
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({
+  dest: 'uploads/',
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
+
+// Handle multer errors
+const handleUpload = (req, res, next) => {
+  upload.single('file')(req, res, (err) => {
+    if (err) {
+      console.error('❌ Multer error:', err);
+      return res.status(500).json({
+        error: 'File upload error',
+        message: 'Error uploading file: ' + err.message
+      });
+    }
+    next();
+  });
+};
 
 // Upload and process CSV
-router.post('/upload', upload.single('file'), (req, res) => {
+router.post('/upload', handleUpload, (req, res) => {
   console.log('📤 Upload request received');
 
   if (!req.file) {
@@ -20,14 +37,14 @@ router.post('/upload', upload.single('file'), (req, res) => {
   }
 
   console.log('📁 File received:', req.file.originalname);
-  const filePath = req.file.path;
-  const fileName = req.file.originalname;
-  const records = [];
-  const invalidRecords = [];
-  let rowNumber = 0;
+    const filePath = req.file.path;
+    const fileName = req.file.originalname;
+    const records = [];
+    const invalidRecords = [];
+    let rowNumber = 0;
 
-  // Parse CSV
-  fs.createReadStream(filePath)
+    // Parse CSV
+    fs.createReadStream(filePath)
     .pipe(csv())
     .on('data', (data) => {
       rowNumber++;
@@ -165,8 +182,9 @@ router.post('/upload', upload.single('file'), (req, res) => {
       );
     })
     .on('error', (error) => {
+      console.error('❌ CSV parsing error:', error);
       fs.unlinkSync(filePath);
-      res.status(500).json({ error: 'Error processing CSV', details: error.message });
+      res.status(500).json({ error: 'Error processing CSV', message: 'CSV parsing failed: ' + error.message });
     });
 });
 
