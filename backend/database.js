@@ -1,21 +1,25 @@
 // database.js
 const mysql = require('mysql2');
 
-// Create MySQL connection
-const connection = mysql.createConnection({
+// Create MySQL connection pool (handles reconnections automatically)
+const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',          // Change this to your MySQL username
   password: '',          // Change this to your MySQL password
-  database: 'transaction_db'
+  database: 'transaction_db',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-// Connect to MySQL
-connection.connect((err) => {
+// Test connection
+pool.getConnection((err, connection) => {
   if (err) {
     console.error('Error connecting to MySQL:', err);
     return;
   }
   console.log('✅ Connected to MySQL database');
+  connection.release();
 });
 
 // Create tables if they don't exist
@@ -48,12 +52,12 @@ const createTables = () => {
     )
   `;
 
-  connection.query(transactionsTable, (err) => {
+  pool.query(transactionsTable, (err) => {
     if (err) console.error('Error creating transactions table:', err);
     else console.log('✅ Transactions table ready');
   });
 
-  connection.query(invalidRecordsTable, (err) => {
+  pool.query(invalidRecordsTable, (err) => {
     if (err) console.error('Error creating invalid_records table:', err);
     else console.log('✅ Invalid records table ready');
   });
@@ -61,4 +65,4 @@ const createTables = () => {
 
 createTables();
 
-module.exports = connection;
+module.exports = pool;
