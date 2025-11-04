@@ -129,6 +129,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
               record.order_status
             ], (err) => {
               if (err) {
+                console.error('Error inserting record:', err);
                 errors.push(err);
               } else {
                 insertedCount++;
@@ -137,9 +138,10 @@ router.post('/upload', upload.single('file'), (req, res) => {
               // Check if all records processed
               if (index === records.length - 1) {
                 if (errors.length > 0) {
+                  console.error('Insert errors:', errors);
                   return res.status(500).json({
                     success: false,
-                    message: 'Error inserting some records',
+                    message: 'Error inserting records: ' + errors[0].message,
                     errors: errors.map(e => e.message)
                   });
                 }
