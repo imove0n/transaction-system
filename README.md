@@ -1,6 +1,6 @@
 # Transaction Uploader - Full Stack Application
 
-A professional full-stack transaction management system built for PSE (Philippine Stock Exchange) technical assessment. Upload, validate, and manage transaction data with a modern, responsive interface.
+A professional full-stack transaction management system built for Premier Software Enterprise, Inc technical assessment. Upload, validate, and manage transaction data with a modern, responsive interface.
 
 ![Tech Stack](https://img.shields.io/badge/React-19.1.1-blue)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green)
@@ -454,7 +454,7 @@ MIT License - feel free to use this project for learning and development.
 
 ## 👨‍💻 Author
 
-**Laurence** - PSE Technical Assessment Submission
+**Laurence** - Premier Software Enterprise, Inc Technical Assessment Submission
 
 ---
 
@@ -483,4 +483,4 @@ MIT License - feel free to use this project for learning and development.
 
 ---
 
-**Built with ❤️ for PSE Technical Assessment**
+**Built with ❤️ for Premier Software Enterprise, Inc Technical Assessment**
