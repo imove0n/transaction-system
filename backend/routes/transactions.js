@@ -10,7 +10,11 @@ const { validateRecord, checkDuplicates } = require('../validator');
 // Configure multer for file uploads
 const upload = multer({
   dest: 'uploads/',
-  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    console.log('📄 Multer processing file:', file.originalname);
+    cb(null, true);
+  }
 });
 
 // Handle multer errors
